@@ -1,0 +1,13 @@
+
+    Name – Calender for scheduling and events
+
+    Brief Description – the admin of the page will be able to freely update this calender so that users can stay up to date with all scheduling and events.
+
+    Actors – Admin and Users will be able to view
+    Preconditions – Admin wants to keep users/followers up to date.
+
+    Basic Flow – Admin opens the calender page. the admin can add whatever events and schedules to keep users up to date
+
+    Alternate Flows – Whenever an event is added it will text all the followers who willingly give their number
+    
+    Post Conditions – any events posted will be available for viewing to the public
