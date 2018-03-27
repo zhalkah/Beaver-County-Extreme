@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="bce.css"/>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<!-- you needed these three lines for the datepicker and jquery to work -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <title>BCE Forms</title>
+  </head>
+    <body>
+      <div class="center-box">
+          <div class="header">
+      <h2>Prospective Athlete Form</h2>
+    </div>
+  <br>  <div class="forms">
+<form action="/action_page.php" target="_blank">
+  First name:<br>
+  <input type="text" name="firstname" value="">
+  <br>
+  Last name:<br>
+  <input type="text" name="lastname" value="">
+  <br>
+  Date of Birth:<br>
+  <!-- you call the datepicker id below in the jquery function between the script tags -->
+  <label class="datepicker"></label><input type="text" id="datepicker">
+  <br>
+  Gender:<br>
+  <input type="radio" name="gender" value="male" checked> Male<br>
+  <input type="radio" name="gender" value="female"> Female<br>
+  <br>
+
+  Height:<br>
+  <input type="text" name="height" value="">
+  <br>
+  School District:<br>
+  <input type="text" name="school-district" value="">
+  <br>
+  Parents Phone #:<br>
+  <input type="text" name="phone#" value="">
+  <br>
+  Parents Email:<br>
+  <input type="text" name="email" value="">
+  <br><br>
+  <input type="submit" value="Submit">
+</div>
+</div>
+</form>
+
+
+<!-- datepicker function in jquery -->
+<script>
+$(function(){
+ $( "#datepicker" ).datepicker({
+    orientation: 'bottom'
+ });
+});
+
+</script>
+</body>
+</html>
