@@ -1,0 +1,14 @@
+* Name- All forms
+
+* brief description - users will be able to view and submit various forms. For example, submitting a form to join the organization or print out forms such as fundraisers and parent-player contracts as well as donations forms.
+
+* Actors - admin and users will be able to view
+* preconditions- admin wants users to be able to easily access forms without having to wait to meet in person
+
+* basic flow - users will click a "join our program" link to get to the form which will be submitted to the admin to view. Another button "forms" will be available for the user to press which will lead them to our various forms
+
+* alternate flows - after printing and filling out fundraising forms the user will be able to submit their portion.
+
+* post conditions - all forms will be easily available for parents and anyone interested in the organization
+
+https://github.com/zhalkah/Beaver-County-Extreme
