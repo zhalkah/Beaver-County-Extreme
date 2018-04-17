@@ -1,0 +1,7 @@
+Name – Online store for selling merchandise related to the organization
+Brief Description – the admin of the page will have the ability to add/change merchandise, add/change prices, change shipping costs, etc. 
+Actors – Admin and Users will be able to view the website
+Preconditions – Admin wants to keep users/followers up to date with new goods
+Basic Flow – The admin will be able to add new merchandise to the website, post prices, and post pictures for each item
+Alternate Flows – Whenever new merchandise is added to the website, customers who are subscribed will receive an email automatically
+Post Conditions – New merchandise that is added to the website and will be available to consumers to purchase 
