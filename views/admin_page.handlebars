@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <title>BCE Administrator Page</title>
+
+    <style>
+    body, html {
+      background: url(https://farm1.staticflickr.com/900/26185298177_c2c1ec466d_o.png) no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+}
+
+.navbar {background: rgba(0,0,0,.4); }
+
+#icon{border-radius: 30px}
+
+
+#toolgroup {
+ margin-left: auto;
+}
+
+input:not([type=file]) {
+	border: 2px solid black;
+}
+    </style>
+  </head>
+<body>
+
+<!--Navigation bar-->
+<nav class="navbar navbar-expand-lg navbar-dark" style="box-shadow: 0px 5px 25px white">
+    <a class="navbar-brand" href="#">
+      <img src="https://www.iconexperience.com/_img/i_collection_png/512x512/plain/basketball.png" width="40" height="40" id="icon" class="d-inline-block align-top" alt="">
+    </a>
+    <div class="btn-group" id="toolgroup" role="group">
+      <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#view_applications">View Applications</button>
+      <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#edit_events">Add Events</button>
+    </div>
+  </nav>
+<!--View Application Modal-->
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" id="view_applications" role="dialog" aria-labelledby="View Applications" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <table class="table table-dark" id="apps_table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Birth Date</th>
+              <th scope="col">School District</th>
+              <th scope="col">Height</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody class="apps_table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<!--Edit Events Modal-->
+  <div class="modal fade" id="edit_events" tabindex="-1" role="dialog" aria-labelledby="Edit Events" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Event Updater</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="eventupdater" action="/update_events" method="POST">
+            <div class="col">
+              <label for="event_name">Name of Event:</label>
+              <input type="text" class="form-control" name="event_name" id="event_name" placeholder=" ">
+            </div>
+            <div class="col">
+              <label for="event_location">Event Location:</label>
+              <input type="text" class="form-control" name ="event_location" id="event_location" placeholder="">
+            </div>
+            <div class="col">
+              <label for="event_date_time">Date and Time of Event:</label>
+              <input type="datetime-local" class="form-control" name="event_date_time"id="event_date_time">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-outline-dark">Add New Event</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+$.ajax({
+  type        : 'POST',
+  url         : '/get_applications',
+  contentType: "application/json; charset=utf-8",
+}).done(function(data){
+console.log(data);
+
+      for (var i = 0; i<data.success.length; i++) {
+          $("#apps_table").append(
+            '<tr><td>' + data.success[i].app_id + '</td><td>' + data.success[i].firstname +
+            '</td><td>' + data.success[i].lastname + '</td><td>' + adjustDateFormat(data.success[i].birth_date) +
+            '</td><td>' + data.success[i].school +'</td><td>' + data.success[i].height +
+            '</td><td>' + data.success[i].phone + '</td><td>' + data.success[i].email) + '</td></tr>';
+      }
+    });
+</script>
+<script>
+$(document).ready(function() {
+	$("eventupdater").submit(function() {
+		var eventData = {
+			'event_name'       : $('input[name=event_name]').val(),
+			'event_location'   : $('input[name=event_location]').val(),
+			'event_date_time'  : $('input[name=event_date_time]').val(),
+		$.ajax({
+      type        : 'POST',
+			url         : '/update_events',
+			data        : eventData,
+			dataType    : 'JSON',
+		})
+	}
+})
+})
+</script>
+<script>
+function adjustDateFormat(date_string){
+  var date = new Date(date_string);
+  var y = date.getFullYear();
+  var m = date.getMonth();
+  var day = date.getDate();
+  var str = ((m+1)<10?"0"+(m+1):(m+1))
+  +"-"+
+  (day<10?"0"+day:day)
+  +"-"+
+  y
+  return str;
+}
+
+$('#view_applications').modal({
+    remote: url,
+    refresh: true
+});
+
+</script>
+
+</body>
+</html>

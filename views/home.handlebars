@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <title>Beaver County Extreme</title>
+
+    <style>
+    body, html {
+      background: url(https://farm1.staticflickr.com/900/26185298177_c2c1ec466d_o.png) no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+}
+
+.navbar {background: rgba(0,0,0,.4); }
+
+#icon{border-radius: 20px}
+
+input:not([type=file]) {
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+body {
+  margin: 0;
+  min-width: 960px;
+}
+
+rect {
+  fill: none;
+  pointer-events: all;
+}
+
+circle {
+  fill: none;
+  stroke-width: 2.5px;
+}
+
+    </style>
+  </head>
+<body>
+
+<!--Navigation bar-->
+<nav class="navbar navbar-expand-lg navbar-dark" style="box-shadow: 0px 5px 25px white">
+    <a class="navbar-brand" href="#">
+      <img src="https://www.iconexperience.com/_img/i_collection_png/512x512/plain/basketball.png" width="40" height="40" id="icon" class="d-inline-block align-top" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+          data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#event_schedule">BCE Event Schedule</button>
+        <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#application">Apply to Join Our Team</button>
+        <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#comment_board">Comment Board</button>
+      </div>
+    </ul>
+  </div>
+</nav>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="event_schedule">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="container" id="event_container">
+        <div class="row justify-content-md-center">
+          <table class="table table-striped table-dark" id="events_table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Event Name</th>
+                <th scope="col">Location</th>
+                <th scope="col">Date & Time of Event</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="application">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="container" id="center-box">
+        <form id="appform" action="/apply_submit" method="POST">
+          <br>
+          <div class="row">
+            <div class="col">
+              <label for="firstname">First name:</label>
+              <input type="text" class="form-control" name="firstname" id="firstname" placeholder=" ">
+            </div>
+            <div class="col">
+              <label for="lastname">Last name:</label>
+              <input type="text" class="form-control" name ="lastname" id="lastname" placeholder="">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="birth_date">Date of Birth:</label>
+              <input type="date" class="form-control" name="birth_date"id="birth_date">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="height">  Height:</label>
+              <input type="text" class="form-control" name="height" id="height" placeholder="">
+            </div>
+            <div class="col">
+              <label for="school">School District:</label>
+              <input type="text" class="form-control" name ="school" id="school" placeholder="">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="phone">Parents Phone #:</label>
+              <input type="text" class="form-control" name="phone" id="phone" placeholder="">
+            </div>
+            <div class="col">
+              <label for="email"> Parents Email:</label>
+              <input type="email" class="form-control" name="email" id="email" placeholder="">
+            </div>
+          </div>
+          <br><br>
+          <button type="submit" class="btn btn-outline-dark">Submit<span class="fa fa-arrow-right"></span></button>
+          <br><br>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="comment_board">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <table class="table table-sm table-dark" id="comment_table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#leave_comment">Leave a Comment</button>
+      <div class="modal fade" id="leave_comment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New Comment</h5>
+            </div>
+            <div class="modal-body">
+              <form id="post_comment" action="/submit_comment" method="POST">
+                <div class="form-group">
+                  <label for="name" class="col-form-label">Name:</label>
+                  <input type="text" class="form-control" name="comment_name" id="comment_name">
+                </div>
+                <div class="form-group">
+                  <label for="comment" class="col-form-label">Comment:</label>
+                  <textarea class="form-control" name="comment" id="comment"></textarea>
+                </div>
+                <button type="submit" class="btn btn-outline-dark">Post<span class="fa fa-arrow-right"></span></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$.ajax({
+  type        : 'POST',
+  url         : '/get_events',
+  contentType: "application/json; charset=utf-8",
+}).done(function(data){
+console.log(data);
+
+for (var i = 0; i<data.success.length; i++) {
+  $("#events_table").append(
+    '<tr><td>' + data.success[i].event_id + '</td><td>' + data.success[i].event_name +
+    '</td><td>' + data.success[i].event_location + '</td><td>' + adjustDateFormat(data.success[i].event_date_time) + '</td></tr>');
+  }
+});
+
+$(document).ready(function() {
+  $("appform").submit(function() {
+    var formData = {
+      'firstname'          : $('input[name=firstname]').val(),
+			'lastname'           : $('input[name=lastname]').val(),
+			'birth_date'         : $('input[name=birth_date]').val(),
+		//	'etw-drop'      	   : $('input[name=etw-drop]').val(),
+      'school'             : $('input[name=school]').val(),
+			'height'             : $('input[name=height]').val(),
+			'phone'              : $('input[name=phone]').val(),
+			'email'              : $('input[name=email]').val()
+		};
+console.log(JSON.stringify(formData));
+    $.ajax({
+      type        : 'POST',
+      url         : '/apply_submit',
+      data        : formData,
+      dataType    : 'JSON',
+    })
+  })
+})
+
+
+
+function adjustDateFormat(date_string){
+  var date = new Date(date_string);
+  var y = date.getFullYear();
+  var m = date.getMonth();
+  var day = date.getDate();
+  var h = date.getHours();
+  var min = date.getMinutes();
+  var str = ((m+1)<10?"0"+(m+1):(m+1))
+  +"-"+
+  (day<10?"0"+day:day)
+  +"-"+
+  y+
+  " @ "+
+  (h<10?"0"+h:h)+
+  ":"+
+  (min<10?"0"+min:min);
+  return str;
+}
+
+
+var width = Math.max(960, innerWidth),
+    height = Math.max(500, innerHeight);
+
+var i = 0;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+svg.append("rect")
+    .attr("width", width)
+    .attr("height", height)
+    .on("ontouchstart" in document ? "touchmove" : "mousemove", particle);
+
+function particle() {
+  var m = d3.mouse(this);
+
+  svg.insert("circle", "rect")
+      .attr("cx", m[0])
+      .attr("cy", m[1])
+      .attr("r", 1e-6)
+      .style("stroke", d3.hsl((i = (i + 1) % 360), 1, .5))
+      .style("stroke-opacity", 1)
+    .transition()
+      .duration(2000)
+      .ease(Math.sqrt)
+      .attr("r", 100)
+      .style("stroke-opacity", 1e-6)
+      .remove();
+
+  d3.event.preventDefault();
+}
+</script>
+<script>
+$(document).ready(function() {
+  $("post_comment").submit(function() {
+    var formData = {
+      'comment_name'  : $('input[name=comment_name]').val(),
+			'comment'       : $('input[name=comment]').val(),
+		};
+console.log(JSON.stringify(commentData));
+    $.ajax({
+      type        : 'POST',
+      url         : '/submit_comment',
+      data        : formData,
+      dataType    : 'JSON',
+    })
+  })
+})
+
+$.ajax({
+  type        : 'POST',
+  url         : '/get_comments',
+  contentType: "application/json; charset=utf-8",
+}).done(function(data){
+console.log(data);
+
+for (var i = 0; i<data.success.length; i++) {
+  $("#comment_table").append(
+    '<tr><td>' + data.success[i].comment_id + '</td><td>' + data.success[i].name +
+    '</td><td>' + data.success[i].comment + '</td></tr>');
+  }
+});
+</script>
+</body>
+</html>
