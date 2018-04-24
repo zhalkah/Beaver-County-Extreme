@@ -1,0 +1,8 @@
+Name – Comments board/section
+Brief Description – Users will have access to view the comments that were left by other users as well as post new comments 
+Actors – Admin and Users will be able to view the full website 
+Preconditions – No preconditions involved with the comments board
+Basic Flow – The admin will be able to delete comments (if inappropriate, etc.), Users will be able to post new comments as well as see the old comments
+Alternate Flows – No alternative flows for the comments board 
+Post Conditions – New comments post to the website, but may be taken down if the admin feels that they’re inappropriate or irrelevant 
+
